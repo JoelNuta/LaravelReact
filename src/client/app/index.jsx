@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {List} from './List.jsx'
-import {Counter} from './Counter.jsx'
+import {List} from './List.jsx';
+import {AddTask} from './AddTask.jsx';
 
 class App extends React.Component {
 
@@ -14,7 +14,11 @@ class App extends React.Component {
   }
     
   componentDidMount(){
-      fetch("/datos")
+      this.updateList()
+  }
+    
+  updateList(){
+      fetch("/task")
         .then((resp)=>resp.json())
         .then((datos)=>{
           this.setState({
@@ -24,14 +28,13 @@ class App extends React.Component {
   }
     
   render () {
-    const staticList = ["Esta","es","una","lista","estatica"]
     
     return <div >
-        <List dataList={staticList} />
+        <h1>Mis Tareas</h1>
         <hr/>
         <List dataList={this.state.dinamicList} />
         <hr/>
-        <Counter />
+        <AddTask onUpdate={ ()=> this.updateList() }/>
     </div>;
   }
 }

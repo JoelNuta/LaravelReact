@@ -6,7 +6,7 @@ export class List extends React.Component{
     render (){
         const dataList = this.props.dataList
         const liList = dataList.map( (data) => {
-            return <li key={data}>{data}</li>
+            return <li key={data.id}>{data.name}</li>
         })
         return <ul>{liList}</ul>
     }
