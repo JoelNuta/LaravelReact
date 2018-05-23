@@ -1,42 +1,34 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {List} from './List.jsx';
-import {AddTask} from './AddTask.jsx';
 
-class App extends React.Component {
+function MyButton (props){
+    return (
+      <button onClick={props.onToggle}>
+        {props.toggle ? 'ON' : 'OFF'}
+      </button>
+    );
+}
 
-  constructor(props){
-      super(props)
-      
-      this.state = {
-          dinamicList : []
-      }
+class Toggle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {isToggleOn: true};
+    this.handleClick = this.handleClick.bind(this);
   }
-    
-  componentDidMount(){
-      this.updateList()
+
+  handleClick() {
+    this.setState(prevState => ({
+      isToggleOn: !prevState.isToggleOn
+    }));
   }
-    
-  updateList(){
-      fetch("/task")
-        .then((resp)=>resp.json())
-        .then((datos)=>{
-          this.setState({
-            dinamicList : datos.list
-              })
-          })
-  }
-    
-  render () {
-    
-    return <div >
-        <h1>Mis Tareas</h1>
-        <hr/>
-        <List dataList={this.state.dinamicList} />
-        <hr/>
-        <AddTask onUpdate={ ()=> this.updateList() }/>
-    </div>;
+
+  render() {
+    return (
+      <MyButton onToggle={this.handleClick} 
+		toggle={this.state.isToggleOn}/>
+    );
   }
 }
 
-render(<App/>, document.getElementById('app'));
+
+render(<Toggle name="mundo!!"/>, document.getElementById('app'));

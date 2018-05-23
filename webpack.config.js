@@ -1,24 +1,43 @@
 var webpack = require('webpack');
 var path = require('path');
 
-var BUILD_DIR = path.resolve(__dirname, 'src/client/public');
+var BUILD_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'src/client/app');
 
 var config = {
-  entry: APP_DIR + '/index.jsx',
+  entry: {
+    main : APP_DIR + '/index.jsx',
+  },
   output: {
     path: BUILD_DIR,
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
+  resolve: {
+    // Add `.ts` and `.tsx` as a resolvable extension.
+    extensions: [".jsx", ".js"]
+  },
+  optimization: {
+    splitChunks: {
+        cacheGroups: {
+            commons: {
+                test: /[\\/]node_modules[\\/]/,
+                name: "vendors",
+                chunks: "all"
+            }
+        }
+    }
+},
+  devtool: 'inline-source-map',
   module : {
-   loaders : [
-     {
-       test : /\.jsx?/,
-       include : APP_DIR,
-       loader : 'babel-loader'
-     }
-   ]
+    rules : [
+      {
+          test: /\.jsx?$/,
+          loader: "babel-loader",
+          query: {compact: false}
+      }
+    ]
  }
+
 };
 
 module.exports = config;
