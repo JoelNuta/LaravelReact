@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 
 var BUILD_DIR = path.resolve(__dirname, 'public');
-var APP_DIR = path.resolve(__dirname, 'src/client/app');
+var APP_DIR = path.resolve(__dirname, 'src/client');
 
 var config = {
   entry: {
@@ -13,7 +13,6 @@ var config = {
     filename: '[name].js'
   },
   resolve: {
-    // Add `.ts` and `.tsx` as a resolvable extension.
     extensions: [".jsx", ".js"]
   },
   optimization: {

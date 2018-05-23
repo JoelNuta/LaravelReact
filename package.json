@@ -1,5 +1,5 @@
 {
-  "name": "react-mongo",
+  "name": "react-base",
   "version": "1.0.0",
   "description": "",
   "main": "src/server/server.js",
@@ -8,11 +8,12 @@
     "build": "webpack -p",
     "server": "node src/server/server.js",
     "serverDev": "nodemon src/server/server.js",
-    "start": "npm run dev & npm run server"
+    "start": "concurrently --kill-others \"npm run dev\" \"npm run serverDev\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^3.5.1",
     "nodemon": "^1.12.1"
   },
   "dependencies": {
