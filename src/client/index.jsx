@@ -1,34 +1,40 @@
 import React from 'react';
 import {render} from 'react-dom';
+import Map from './Map';
+import RouterForm from './RouteForm';
+import Result from './Result';
 
-function MyButton (props){
-    return (
-      <button onClick={props.onToggle}>
-        {props.toggle ? 'ON' : 'OFF'}
-      </button>
-    );
+class App extends React.Component{
+
+  constructor(props){
+    super(props)
+    this.findRoute = this.findRoute.bind(this)
+    this.state = { route : {} }
+  }
+
+
+  findRoute(routeData){
+    // console.log(routeData)
+    fetch("/route",{
+      method : "POST",
+      headers : {
+        "content-type":"application/json"
+      },
+      body : JSON.stringify(routeData)
+    }).then(resp => resp.json())
+      .then( route => this.setState({route}) )
+      .catch(alert)
+  }
+
+  render(){
+    return ( 
+      <main>
+        <RouterForm onFind={this.findRoute}/>
+        <Result route={this.state.route} />
+      </main>
+    )
+  }
+
 }
 
-class Toggle extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {isToggleOn: true};
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn
-    }));
-  }
-
-  render() {
-    return (
-      <MyButton onToggle={this.handleClick} 
-		toggle={this.state.isToggleOn}/>
-    );
-  }
-}
-
-
-render(<Toggle name="mundo!!"/>, document.getElementById('app'));
+render(<App/>, document.getElementById('app'));
