@@ -22,7 +22,9 @@ class App extends React.Component{
       },
       body : JSON.stringify(routeData)
     }).then(resp => resp.json())
-      .then( route => this.setState({route}) )
+      .then( route => this.setState({route}) 
+        // TODO dibujar la ruta en el mapa
+      )
       .catch(alert)
   }
 
