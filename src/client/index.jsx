@@ -38,3 +38,20 @@ class App extends React.Component{
 }
 
 render(<App/>, document.getElementById('app'));
+
+// Mapa de google maps
+var directionsDisplay = new google.maps.DirectionsRenderer;
+var directionsService = new google.maps.DirectionsService;
+
+var bsas = {lat: -34.6037, lng: -58.3816};
+
+var map = new google.maps.Map(document.getElementById('map'), {
+  zoom: 12,
+  center: bsas
+})
+directionsDisplay.setMap(map);
+
+fetch("/allRoutes")
+  .then(reps => resp.json())
+  .then()
+  .catch(console.error)
