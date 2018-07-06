@@ -39,8 +39,8 @@ const maxWalkKm = 0.8
 
 
 
-module.exports.findRoute = function (busStosData,routeData){
-    const allStops = busStosData
+module.exports.findRoute = function (busStopsData,routeData){
+    const allStops = busStopsData
                     .reduce( (stops,branch) => stops.concat(branch.stops) ,[])
                     .map(s => new Stop(s))
     

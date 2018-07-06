@@ -5,30 +5,39 @@ const findLogic = require("./FindLogic")
 const app = express()
 
 
-const baseFolder = path.resolve(__dirname,'../../public')
+const fetch = require("node-fetch")
 
-app.use("/",express.static(baseFolder))
+
+const baseFolder = path.resolve(__dirname, '../../public')
+
+app.use("/", express.static(baseFolder))
 
 app.use(express.json())
 
-app.get("/allRoutes",(req,resp)=>{
+app.get("/allRoutes", (req, resp) => {
     ServerMockup()
-        .then( busStopsData => resp.json(busStopsData) )
+        .then(busStopsData => resp.json(busStopsData))
+        .catch((err) => {
+            console.error(err)
+            resp.json({ error: err.message })
+        })
 })
 
-app.post("/route",(req,resp) => {
+
+app.post("/route", (req, resp) => {
     const routeData = req.body
     ServerMockup()
-        .then( busStopsData =>{
-            const route = findLogic.findRoute(busStopsData,routeData)
-            resp.json(route) 
+        .then(busStopsData => {
+            const route = findLogic.findRoute(busStopsData, routeData)
+            resp.json(route)
         })
-        .catch( (err) => {
+        .catch((err) => {
             console.error(err)
-            resp.json({error :err.message})
-        } )
+            resp.json({ error: err.message })
+        })
 })
 
-app.listen(8080,()=>{
+
+app.listen(8080, () => {
     console.log("Server UP!")
 })

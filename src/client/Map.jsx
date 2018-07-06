@@ -10,8 +10,8 @@ export default class Map extends React.Component{
 
     showMap(elm){
         this.map = new google.maps.Map(elm,{
-            zoom: 4,
-            center :  {lat: -25.344, lng: 131.036} // Bs As
+            zoom: 12,
+            center :  {lat: -34.6037, lng: -58.3816} // Bs As
         })
         this.map.addListener("click",(event)=>{
             const cords = event.latLng
@@ -25,7 +25,6 @@ export default class Map extends React.Component{
         })
         return false;
     }
-      
 
     render(){
         return <div style={{height:500,width:500}} ref={elm=>this.showMap(elm)}></div>

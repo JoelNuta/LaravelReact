@@ -32,7 +32,7 @@ export default class RouterForm extends React.Component{
                         title="Hasta" 
                         value={this.state.to}
                         onChange={this.onChange} />
-                <button onClick={() => this.props.onFind(this.state)}>Buscar routa</button>
+                <button onClick={() => this.props.onFind(this.state)}>Buscar ruta</button>
             </div>
         )
     }
